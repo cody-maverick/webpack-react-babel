@@ -3,7 +3,16 @@ export default class Geocode {
 
     async geoCodeCity(place) {
         const res = await fetch(`https://eu1.locationiq.com/v1/search.php?key=${this._apiKey}&q=${place}&format=json`);
-        console.log(res.json());
-        return res;
+        let results = await res.json();
+        console.log('Места:', results);
+        return results.map(this._transformGeocode);
+    }
+
+    _transformGeocode = (data) => {
+        return {
+            place: data.display_name,
+            lat: data.lat,
+            lon: data.lon
+        }
     }
 }
