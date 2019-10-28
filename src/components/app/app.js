@@ -58,6 +58,9 @@ export default class App extends Component {
         return (
             <div className="weather-app">
                 <h1 className="weather-app__title">
+                    <i className="wi wi-day-cloudy">
+
+                    </i>
                     weather
                 </h1>
                 <CityInput onSubmitForm={this.onSubmitForm.bind(this)}/>
