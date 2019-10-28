@@ -27,10 +27,17 @@ export default class WeatherService {
         }
     }
 
+    tempPlus = (temp) => {
+        let toArray = temp.toString().split('');
+        toArray.unshift('+');
+        return toArray.join("")
+    };
+
     fToCelsius = (temp) => {
         let celsiusTemp = Math.floor((temp - 32) * 5 / 9);
-        return celsiusTemp > 0 ? celsiusTemp.toString().split('').unshift('+').join('') : celsiusTemp;
+        return celsiusTemp > 0 ? this.tempPlus(celsiusTemp) : celsiusTemp;
     };
+
     toLowerCase = (string) => {
         let lowString = string.toLowerCase();
         return lowString[0].toUpperCase() + lowString.slice(1);

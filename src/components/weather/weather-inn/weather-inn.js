@@ -14,12 +14,6 @@ const WeatherInn = ({weather}) => {
                 </span>
             </div>
 
-            <div className="weather__temperature">
-                Температура {temperature} &deg;C;
-            </div>
-            <div className="weather__cloudly">
-                {summary}
-            </div>
             <div className="weather__uvindex">
                 Индекс УФ {uvIndex}
             </div>
