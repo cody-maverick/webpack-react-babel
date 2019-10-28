@@ -5,7 +5,7 @@ import WeatherIcon from '../weather-icon';
 import './weather-inn.less'
 
 const WeatherInn = ({weather}) => {
-    let {temperature, summary, uvIndex} = weather;
+    let {temperature, summary, uvIndex, humidity, apparentTemperature} = weather;
 
     return (
         <div className="weather">
@@ -14,15 +14,19 @@ const WeatherInn = ({weather}) => {
                     <span className="weather-main-temperature">{temperature}&deg;</span>
                     <WeatherIcon/>
                 </div>
-
                 <div className="weather-main__state">
                     {summary}&nbsp;
                 </div>
-
+                <div classNames="weather-main__apparent">
+                    Ощущается как: {apparentTemperature}&deg;
+                </div>
             </div>
 
             <div className="weather__uvindex">
-                Индекс УФ {uvIndex}
+                Индекс УФ: {uvIndex}
+            </div>
+            <div className="weather__humidity">
+                Влажность воздуха: {humidity}%
             </div>
         </div>
     )

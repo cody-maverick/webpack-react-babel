@@ -15,15 +15,18 @@ export default class WeatherService {
     async getWeatherCurrently(lat, lon) {
         let url = `/${lat},${lon}`;
         const res = await this.getWeather(url);
+        console.log(res.currently);
         return this._transformWeatherCurrently(res.currently);
     }
 
     async _transformWeatherCurrently(weather) {
-        const {temperature, summary, uvIndex} = weather;
+        const {temperature, summary, uvIndex, humidity, apparentTemperature} = weather;
         return {
             temperature: this.fToCelsius(temperature),
             summary: this.toLowerCase(summary),
-            uvIndex: uvIndex
+            uvIndex: uvIndex,
+            humidity: humidity*100,
+            apparentTemperature: this.fToCelsius(apparentTemperature)
         }
     }
 
