@@ -4,7 +4,7 @@ export default class Geocode {
     async geoCodeCity(place) {
         const res = await fetch(`https://eu1.locationiq.com/v1/search.php?key=${this._apiKey}&q=${place}&format=json`);
         let results = await res.json();
-        console.log('Места:', results);
+        console.log('Места:', results.map(this._transformGeocode));
         return results.map(this._transformGeocode);
     }
 

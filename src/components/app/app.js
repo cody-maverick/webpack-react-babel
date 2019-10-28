@@ -12,31 +12,52 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            weather: {temperature: 552}
+            weather: null
         }
     }
 
     weatherService = new WeatherService();
     geoCode = new Geocode();
 
+    async componentDidMount() {
+        this.getWeatherCurrently();
+    }
+
     onSubmitForm = async (e) => {
         e.preventDefault();
-        let inputVal = e.currentTarget.querySelector('input').value;
-        let cities = await this.geoCode.geoCodeCity(inputVal);
-        let place = cities[0]; // первое место из списка
-        let weatherJSON = await this.weatherService.getWeatherCurrently(place.lat, place.lon);
-        console.log(weatherJSON);
+        this.getWeatherCurrently();
         this.setState({
-            weather: weatherJSON
+            weather: null
         })
     };
 
+    getWeatherCurrently = async () => {
+        let cityInput = document.querySelector('#city-input');
+        let inputVal = cityInput.value;
+        let place = await this.getCities(inputVal);
+        let weather = await this.getWeather(place);
+        console.log(weather);
+        this.setState({
+            weather
+        })
+    }
+
+    getCities = async (val) => {
+        let cities = await this.geoCode.geoCodeCity(val);
+        let place = cities[0]; // первое место из списка
+        return place;
+    };
+
+    getWeather = async (place) => {
+        const weatherJSON = await this.weatherService.getWeatherCurrently(place.lat, place.lon);
+        return weatherJSON
+    };
 
     render() {
-        console.log('State app', this.state)
+        console.log('State app', this.state);
         return (
-            <div className="app">
-                <h1 className="app__title">
+            <div className="weather-app">
+                <h1 className="weather-app__title">
                     weather
                 </h1>
                 <CityInput onSubmitForm={this.onSubmitForm.bind(this)}/>

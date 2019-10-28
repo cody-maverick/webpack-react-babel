@@ -14,7 +14,10 @@ export default class CityInput extends Component {
         return (
             <div className="city">
                 <form onSubmit={(e) => this.props.onSubmitForm(e)}>
-                    <input type="text" defaultValue={this.state.val}/>
+                    <input id="city-input" type="text" defaultValue={this.state.val}/>
+                    <button type="submit">
+                        Найти
+                    </button>
                 </form>
             </div>
         )
