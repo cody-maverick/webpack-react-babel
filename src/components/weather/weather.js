@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import 'weather-icons/css/weather-icons.min.css'
+
 import WeatherInn from './weather-inn/weather-inn';
 
 export default class Weather extends Component {
