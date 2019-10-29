@@ -15,7 +15,7 @@ export default class WeatherService {
     async getWeatherCurrently(lat, lon) {
         let url = `/${lat},${lon}`;
         const res = await this.getWeather(url);
-        console.log(res.currently);
+        console.log(res);
         return this._transformWeatherCurrently(res.currently);
     }
 

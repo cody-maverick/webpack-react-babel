@@ -4,12 +4,16 @@ import WeatherIcon from '../weather-icon';
 
 import './weather-inn.less'
 
-const WeatherInn = ({weather}) => {
+const WeatherInn = ({weather, place}) => {
     let {temperature, summary, uvIndex, humidity, apparentTemperature, icon} = weather;
 
     return (
         <div className="weather">
+            <h3 className="weather__place">
+                {place}
+            </h3>
             <div className="weather__main weather-main">
+
                 <div className="weather-main__temperature">
                     <span className="weather-main-temperature">{temperature}&deg;</span>
                     <WeatherIcon icon={icon}/>

@@ -45,7 +45,11 @@ export default class App extends Component {
     getCities = async (val) => {
         let cities = await this.geoCode.geoCodeCity(val);
         let place = cities[0]; // первое место из списка
+        this.setState({
+            place: place.place
+        })
         return place;
+
     };
 
     getWeather = async (place) => {
@@ -64,7 +68,7 @@ export default class App extends Component {
                     weather
                 </h1>
                 <CityInput onSubmitForm={this.onSubmitForm.bind(this)}/>
-                <Weather weather={this.state.weather}/>
+                <Weather weather={this.state.weather} place={this.state.place}/>
             </div>
         )
     }

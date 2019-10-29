@@ -13,10 +13,10 @@ export default class Weather extends Component {
 
     render() {
         console.log(this.props.weather);
-        const render = this.props.weather !== null ? <WeatherInn weather={this.props.weather}/> : 'Загрузка...';
+        const weatherMainInfo = this.props.weather !== null ? <WeatherInn weather={this.props.weather} place={this.props.place}/> : 'Загрузка...';
         return (
             <div className="weather-app__info">
-                {render}
+                {weatherMainInfo}
             </div>
         )
     }
