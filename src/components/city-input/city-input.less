@@ -1,23 +1,39 @@
 .city {
   margin-bottom: 30px;
+  width: 100%;
+
   &-form {
     display: flex;
+    width: 100%;
+
     &__input {
       border: 1px solid #dadada;
       padding: 8px 14px 8px;
-      border-radius: 5px 0px 0px 5px;
+      border-radius: 5px 0 0 5px;
       outline: none;
       border-right: none;
-      &__focus {
+      width: 100%;
+      transition: 0.2s;
+      box-sizing: border-box;
 
+      &:focus {
+        border: 1px solid #d98de6;
+        border-right: none;
       }
     }
+
     &__button {
       background: #d98de6;
-      border: 1px solid #d98de6;
-      border-radius: 0px 5px 5px 0px;
-      outline: none;
-      padding: 0px 16px;
+      border: none;
+      border-radius: 0 5px 5px 0;
+      outline: none !important;
+      padding: 0 16px;
+      transition: 0.2s;
+
+      &:hover {
+        background: #c05fc3;
+
+      }
     }
   }
 }
