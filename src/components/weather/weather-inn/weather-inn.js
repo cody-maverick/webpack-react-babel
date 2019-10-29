@@ -5,14 +5,14 @@ import WeatherIcon from '../weather-icon';
 import './weather-inn.less'
 
 const WeatherInn = ({weather}) => {
-    let {temperature, summary, uvIndex, humidity, apparentTemperature} = weather;
+    let {temperature, summary, uvIndex, humidity, apparentTemperature, icon} = weather;
 
     return (
         <div className="weather">
             <div className="weather__main weather-main">
                 <div className="weather-main__temperature">
                     <span className="weather-main-temperature">{temperature}&deg;</span>
-                    <WeatherIcon/>
+                    <WeatherIcon icon={icon}/>
                 </div>
                 <div className="weather-main__state">
                     {summary}&nbsp;

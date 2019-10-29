@@ -20,13 +20,14 @@ export default class WeatherService {
     }
 
     async _transformWeatherCurrently(weather) {
-        const {temperature, summary, uvIndex, humidity, apparentTemperature} = weather;
+        const {temperature, summary, uvIndex, humidity, apparentTemperature, icon} = weather;
         return {
             temperature: this.fToCelsius(temperature),
             summary: this.toLowerCase(summary),
             uvIndex: uvIndex,
             humidity: humidity*100,
-            apparentTemperature: this.fToCelsius(apparentTemperature)
+            apparentTemperature: this.fToCelsius(apparentTemperature),
+            icon: icon
         }
     }
 
