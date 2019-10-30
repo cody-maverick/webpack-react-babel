@@ -1,12 +1,21 @@
+@import '../../../assets/less/_vars.less';
+
 .weather {
   width: 100%;
+
+  &-place {
+    &__description {
+      height: 0;
+      overflow: hidden;
+    }
+  }
 
   &__place {
     font-size: 16px;
     text-align: center;
     background: #eee;
-    border-radius: 8px;
-    padding: 20px 70px;
+    .style-border();
+    padding: 20px 15px;
     margin-bottom: 8px;
   }
 
@@ -14,13 +23,14 @@
     text-align: center;
     margin-bottom: 30px;
     background: #eff7ff;
-    border-radius: 8px;
-    padding: 13px;
+    .style-border();
+    padding: 18px;
 
 
     &__state {
       font-size: 14px;
       color: #a4a4a4;
+      margin-bottom: 8px;
     }
 
     &__temperature {

@@ -6,11 +6,28 @@ import './weather-inn.less'
 
 const WeatherInn = ({weather, place}) => {
     let {temperature, summary, uvIndex, humidity, apparentTemperature, icon} = weather;
+    let {mainCityName, mainCityNameDescription} = place
+
+    const accordionSwitch = (e) => {
+        if (!e.currentTarget.classList.contains('active')) {
+            e.currentTarget.classList.add('active')
+            e.currentTarget.nextSibling.style.height = 'auto';
+            console.log(e.currentTarget)
+        } else {
+            e.currentTarget.classList.remove('active')
+            e.currentTarget.nextSibling.style.height = '0';
+        }
+    }
 
     return (
         <div className="weather">
-            <h3 className="weather__place">
-                {place}
+            <h3 className="weather__place weather-place">
+                <div className="weather-place__title" onClick={(e) => accordionSwitch(e)}>
+                    {mainCityName}
+                </div>
+                <div className="weather-place__description">
+                    {mainCityNameDescription}
+                </div>
             </h3>
             <div className="weather__main weather-main">
 

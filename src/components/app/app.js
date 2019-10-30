@@ -42,12 +42,23 @@ export default class App extends Component {
         })
     }
 
+    cityNameSeparator = ({place}) => {
+        let placeArray = place.split(', ');
+        let mainCityName = placeArray.shift()
+        let mainCityNameDescription = placeArray.join(', ');
+        console.log(mainCityName, mainCityNameDescription)
+        this.setState({
+            place: {
+                mainCityName,
+                mainCityNameDescription
+            }
+        })
+    }
+
     getCities = async (val) => {
         let cities = await this.geoCode.geoCodeCity(val);
         let place = cities[0]; // первое место из списка
-        this.setState({
-            place: place.place
-        })
+        this.cityNameSeparator(place);
         return place;
 
     };
