@@ -1,12 +1,10 @@
-import React from 'react';
-
 import WeatherIcon from '../weather-icon';
 
 import './weather-inn.less'
 
 const WeatherInn = ({weather, place}) => {
-    let {temperature, summary, uvIndex, humidity, apparentTemperature, icon, windSpeed, pressure} = weather;
-    let {mainCityName, mainCityNameDescription} = place
+    let {temperature, summary, humidity, apparentTemperature, icon, windSpeed, pressure} = weather;
+    let {mainCityName, mainCityNameDescription} = place;
 
     const accordionSwitch = (e) => {
         if (!e.currentTarget.classList.contains('active')) {
@@ -38,7 +36,7 @@ const WeatherInn = ({weather, place}) => {
                         {summary}&nbsp;
                     </div>
                     <div className="weather-main__apparent">
-                        Ощущается как: {apparentTemperature}&deg;
+                        Ощущается как: {apparentTemperature}
                     </div>
                 </div>
                 <div className="weather-main__right">
@@ -56,12 +54,6 @@ const WeatherInn = ({weather, place}) => {
                 </div>
             </div>
 
-            <div className="weather__uvindex">
-                Индекс УФ: {uvIndex}
-            </div>
-            <div className="weather__humidity">
-                Влажность воздуха: {humidity}%
-            </div>
         </div>
     )
 };

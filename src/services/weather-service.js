@@ -12,25 +12,50 @@ export default class WeatherService {
         return await res.json();
     }
 
-    async getWeatherCurrently(lat, lon) {
+    async getWeatherMain(lat, lon) {
         let url = `/${lat},${lon}`;
         const res = await this.getWeather(url);
         console.log(res);
+        return res
+    }
+
+    async getWeatherCurrently(lat, lon) {
+        let res = await this.getWeatherMain(lat, lon);
         return this._transformWeatherCurrently(res.currently);
     }
 
-    async _transformWeatherCurrently(weather) {
-        const {temperature, summary, uvIndex, humidity, apparentTemperature, icon, pressure, windSpeed} = weather;
+    async getWeatherHourly(lat, lon) {
+        let res = await this.getWeatherMain(lat, lon);
+        return this._transformWeatherHourly(res.hourly.data);
+    }
+
+    async _transformWeatherHourly(data) {
+        return data.map(({time, icon, temperature, summary}) => {
+            return {
+                time: this.unixToTimestamp(time),
+                icon,
+                temperature: this.fToCelsius(temperature),
+                summary
+            }
+        });
+    }
+
+    async _transformWeatherCurrently({temperature, summary, uvIndex, humidity, apparentTemperature, icon, pressure, windSpeed}) {
         return {
             temperature: this.fToCelsius(temperature),
             summary: this.toLowerCase(summary),
             uvIndex,
-            humidity: humidity*100,
+            humidity: humidity * 100,
             apparentTemperature: this.fToCelsius(apparentTemperature),
             icon,
-            pressure: Math.floor(pressure*0.750063) - 16,
-            windSpeed: Math.floor(windSpeed*0.45)
+            pressure: Math.floor(pressure * 0.750063) - 16,
+            windSpeed: Math.floor(windSpeed * 0.45)
         }
+    }
+
+    unixToTimestamp = (unix) => {
+        let date = new Date(unix*1000);
+        return ('0' + date.getHours()).substr(-2) + ':' + ('0' + date.getMinutes()).substr(-2);
     }
 
     tempPlus = (temp) => {
