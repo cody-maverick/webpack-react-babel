@@ -30,12 +30,11 @@ export default class WeatherService {
     }
 
     async _transformWeatherHourly(data) {
-        return data.map(({time, icon, temperature, summary}) => {
+        return data.map(({time, icon, temperature}) => {
             return {
                 time: this.unixToTimestamp(time),
                 icon,
-                temperature: this.fToCelsius(temperature),
-                summary
+                temperature: this.fToCelsius(temperature)
             }
         });
     }
