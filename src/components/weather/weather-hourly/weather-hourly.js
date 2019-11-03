@@ -8,11 +8,13 @@ import './weather-hourly.less';
 
 const WeatherHourly = ({weatherHourly}) => {
 
-    let hourlyWeather = weatherHourly.map(({time, icon, temperature}) => {
+    console.log(weatherHourly)
+
+    let hourlyWeather = weatherHourly.map(({time, icon, temperature, date}) => {
         return (
             <div className="weather-hourly__item weather-hourly-item">
                 <div className="weather-hourly-item__time">
-                    {time}
+                    {time}<br></br><div className="weather-hourly-item__date">{date}</div>
                 </div>
                 <WeatherIcon icon={icon}/>
                 <div className="weather-hourly-item__temperature">

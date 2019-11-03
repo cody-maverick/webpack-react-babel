@@ -30,9 +30,10 @@ export default class WeatherService {
     }
 
     async _transformWeatherHourly(data) {
-        return data.map(({time, icon, temperature}) => {
+        return data.map(({time, icon, temperature}, i) => {
             return {
-                time: this.unixToTimestamp(time),
+                time: i === 0 ? 'Сейчас' : this.unixToTimestamp(time),
+                date: this.unixToTimestamp(time) === '00:00' ? this.getNewDate(time) : '',
                 icon,
                 temperature: this.fToCelsius(temperature)
             }
@@ -53,8 +54,15 @@ export default class WeatherService {
     }
 
     unixToTimestamp = (unix) => {
-        let date = new Date(unix*1000);
-        return ('0' + date.getHours()).substr(-2) + ':' + ('0' + date.getMinutes()).substr(-2);
+        let date = new Date(unix * 1000);
+        let hours = ('0' + date.getHours()).substr(-2);
+        let minutes = ('0' + date.getMinutes()).substr(-2);
+        return hours + ':' + minutes;
+    };
+
+    getNewDate = (unix) => {
+        let date = new Date(unix * 1000);
+        return `${date.getDate()}.${date.getMonth() + 1}`;
     }
 
     tempPlus = (temp) => {
