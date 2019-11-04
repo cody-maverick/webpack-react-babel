@@ -40,8 +40,8 @@ export default class WeatherService {
                 time: this.getDayForDaily(time),
                 weekday: this.getWeekdayForDaily(time),
                 summary,
-                temperatureMax,
-                temperatureMin,
+                temperatureMax: this.fToCelsius(temperatureMax),
+                temperatureMin: this.fToCelsius(temperatureMin),
                 icon
             }
         })

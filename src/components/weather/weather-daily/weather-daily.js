@@ -1,3 +1,5 @@
+import WeatherIcon from '../weather-icon/weather-icon';
+
 import './weather-daily.less';
 
 const WeatherDaily = ({weatherDaily}) => {
@@ -10,6 +12,15 @@ const WeatherDaily = ({weatherDaily}) => {
                 <div className="weather-daily-item__date">
                     {time}<br/>
                     <span>{i === 0 ? 'Сегодня' : weekday}</span>
+                </div>
+                <WeatherIcon icon={icon}/>
+                <div className="weather-daily-item__temperature weather-daily-temperature">
+                    <span className="weather-daily-temperature__max">
+                        {temperatureMax}
+                    </span>
+                    <span className="weather-daily-temperature__min">
+                        {temperatureMin}
+                    </span>
                 </div>
             </li>
         )
