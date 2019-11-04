@@ -14,7 +14,8 @@ export default class App extends Component {
         this.state = {
             weather: null,
             place: null,
-            weatherHourly: null
+            weatherHourly: null,
+            weatherDaily: null
         }
     }
 
@@ -22,8 +23,9 @@ export default class App extends Component {
     geoCode = new Geocode();
 
     async componentDidMount() {
-        this.setWeatherCurrently();
-        this.setWeatherHourly()
+        await this.setWeatherHourly();
+        await this.setWeatherCurrently();
+        await this.setWeatherDaily();
     }
 
     onSubmitForm = async (e) => {
@@ -35,6 +37,7 @@ export default class App extends Component {
         });
         await this.setWeatherHourly();
         await this.setWeatherCurrently();
+        await this.setWeatherDaily();
 
     };
 
@@ -59,6 +62,15 @@ export default class App extends Component {
         console.log(weatherHourly);
         this.setState({
             weatherHourly
+        })
+    };
+
+    setWeatherDaily = async () => {
+        let place = await this.getPlace();
+        let weatherDaily = await this.weatherService.getWeatherDaily(place.lat, place.lon);
+        console.log(weatherDaily);
+        this.setState({
+            weatherDaily
         })
     };
 
@@ -93,7 +105,10 @@ export default class App extends Component {
                     weather
                 </h1>
                 <CityInput onSubmitForm={this.onSubmitForm.bind(this)}/>
-                <Weather weather={this.state.weather} place={this.state.place} weatherHourly={this.state.weatherHourly}/>
+                <Weather weather={this.state.weather}
+                         place={this.state.place}
+                         weatherHourly={this.state.weatherHourly}
+                         weatherDaily={this.state.weatherDaily}/>
             </div>
         )
     }

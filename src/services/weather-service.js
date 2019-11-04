@@ -37,7 +37,8 @@ export default class WeatherService {
     async _transformWeatherDaily(data) {
         return data.map(({time, summary, temperatureMax, temperatureMin, icon})=>{
             return {
-                time,
+                time: this.getDayForDaily(time),
+                weekday: this.getWeekdayForDaily(time),
                 summary,
                 temperatureMax,
                 temperatureMin,
@@ -69,6 +70,16 @@ export default class WeatherService {
             windSpeed: Math.floor(windSpeed * 0.45)
         }
     }
+
+    getDayForDaily = (unix) => {
+        let date = new Date(unix * 1000);
+        return date.toLocaleString('ru', {day: 'numeric', month: 'long'})
+    };
+
+    getWeekdayForDaily = (unix) => {
+        let date = new Date(unix * 1000);
+        return date.toLocaleString('ru', {weekday: 'long'})
+    };
 
     unixToTimestamp = (unix) => {
         let date = new Date(unix * 1000);
