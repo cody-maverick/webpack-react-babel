@@ -19,6 +19,7 @@ const WeatherInn = ({weather, place}) => {
         <div className="weather">
             <h3 className="weather__place weather-place" onClick={(e) => accordionSwitch(e)}>
                 <i className="weather-place__place-icon"></i>
+                <span className="weather-place__triangle"></span>
                 <div className="weather-place__title">
                     {mainCityName}
                 </div>
