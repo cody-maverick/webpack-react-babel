@@ -29,6 +29,23 @@ export default class WeatherService {
         return this._transformWeatherHourly(res.hourly.data);
     }
 
+    async getWeatherDaily(lat, lon) {
+        let res = await this.getWeatherMain(lat, lon);
+        return this._transformWeatherDaily(res.daily.data);
+    }
+
+    async _transformWeatherDaily(data) {
+        return data.map(({time, summary, temperatureMax, temperatureMin, icon})=>{
+            return {
+                time,
+                summary,
+                temperatureMax,
+                temperatureMin,
+                icon
+            }
+        })
+    }
+
     async _transformWeatherHourly(data) {
         return data.map(({time, icon, temperature}, i) => {
             return {

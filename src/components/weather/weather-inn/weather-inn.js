@@ -13,7 +13,7 @@ const WeatherInn = ({weather, place}) => {
         } else {
             e.currentTarget.classList.remove('active')
         }
-    }
+    };
 
     return (
         <div className="weather">
@@ -54,7 +54,6 @@ const WeatherInn = ({weather, place}) => {
                     </ul>
                 </div>
             </div>
-
         </div>
     )
 };
