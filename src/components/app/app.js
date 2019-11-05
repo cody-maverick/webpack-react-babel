@@ -1,4 +1,5 @@
 import {Component} from 'react'
+
 import CityInput from '../city-input'
 import Weather from '../weather/weather'
 
@@ -23,9 +24,12 @@ export default class App extends Component {
     geoCode = new Geocode();
 
     async componentDidMount() {
-        await this.setWeatherHourly();
-        await this.setWeatherCurrently();
-        await this.setWeatherDaily();
+        await this.getCityName();
+        await this.getPlace();
+        await console.log('Before rendering', this.state.placeCoordinate);
+        await this.setWeatherCurrently(this.state.placeCoordinate);
+        await this.setWeatherHourly(this.state.placeCoordinate);
+        this.setWeatherDaily(this.state.placeCoordinate);
     }
 
     onSubmitForm = async (e) => {
@@ -34,12 +38,28 @@ export default class App extends Component {
             weather: null,
             place: null,
             weatherHourly: null,
-            weatherDaily: null
+            weatherDaily: null,
+            placeCoordinate: null
         });
-        await this.setWeatherHourly();
-        await this.setWeatherCurrently();
-        await this.setWeatherDaily();
+        await this.getPlace();
+        await console.log('Координаты 2', this.state.placeCoordinate);
+        await this.saveCityName();
+        await this.setWeatherHourly(this.state.placeCoordinate);
+        await this.setWeatherCurrently(this.state.placeCoordinate);
+        await this.setWeatherDaily(this.state.placeCoordinate);
+    };
 
+    saveCityName = () => {
+        let cityInput = document.querySelector('#city-input');
+        let inputVal = cityInput.value;
+        localStorage.setItem('citySave', inputVal);
+    };
+
+    getCityName = () => {
+        if (localStorage.getItem('citySave')) {
+            let cityInput = document.querySelector('#city-input');
+            cityInput.value = localStorage.getItem('citySave');
+        }
     };
 
     getPlace = async () => {
@@ -48,26 +68,22 @@ export default class App extends Component {
         return await this.getCities(inputVal);
     };
 
-    setWeatherCurrently = async () => {
-        let place = await this.getPlace();
-        let weather = await this.weatherService.getWeatherCurrently(place.lat, place.lon);
+    setWeatherCurrently = async ({lat, lon}) => {
+        let weather = await this.weatherService.getWeatherCurrently(lat, lon);
         this.setState({
             weather
         })
     };
 
-    setWeatherHourly = async () => {
-        let place = await this.getPlace();
-        let weatherHourly = await this.weatherService.getWeatherHourly(place.lat, place.lon);
+    setWeatherHourly = async ({lat, lon}) => {
+        let weatherHourly = await this.weatherService.getWeatherHourly(lat, lon);
         this.setState({
             weatherHourly
         })
     };
 
-    setWeatherDaily = async () => {
-        let place = await this.getPlace();
-        let weatherDaily = await this.weatherService.getWeatherDaily(place.lat, place.lon);
-        console.log(weatherDaily);
+    setWeatherDaily = async ({lat, lon}) => {
+        let weatherDaily = await this.weatherService.getWeatherDaily(lat, lon);
         this.setState({
             weatherDaily
         })
@@ -89,6 +105,9 @@ export default class App extends Component {
         let cities = await this.geoCode.geoCodeCity(val);
         let place = cities[0]; // первое место из списка
         this.cityNameSeparator(place);
+        this.setState({
+            placeCoordinate: place
+        })
         return place;
     };
 
