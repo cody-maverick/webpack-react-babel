@@ -33,7 +33,8 @@ export default class App extends Component {
         this.setState({
             weather: null,
             place: null,
-            weatherHourly: null
+            weatherHourly: null,
+            weatherDaily: null
         });
         await this.setWeatherHourly();
         await this.setWeatherCurrently();
@@ -50,7 +51,6 @@ export default class App extends Component {
     setWeatherCurrently = async () => {
         let place = await this.getPlace();
         let weather = await this.weatherService.getWeatherCurrently(place.lat, place.lon);
-        console.log(weather);
         this.setState({
             weather
         })
@@ -59,7 +59,6 @@ export default class App extends Component {
     setWeatherHourly = async () => {
         let place = await this.getPlace();
         let weatherHourly = await this.weatherService.getWeatherHourly(place.lat, place.lon);
-        console.log(weatherHourly);
         this.setState({
             weatherHourly
         })
@@ -84,7 +83,7 @@ export default class App extends Component {
                 mainCityNameDescription
             }
         })
-    }
+    };
 
     getCities = async (val) => {
         let cities = await this.geoCode.geoCodeCity(val);

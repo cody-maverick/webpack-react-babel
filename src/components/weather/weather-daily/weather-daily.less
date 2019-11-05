@@ -6,13 +6,46 @@
 
   &__item {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 16px 20px;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #ffe1ad;
+    }
   }
 
   &-item {
+    & .wi {
+      font-size: 28px;
+    }
+
+    &__temperature {
+      font-size: 17px;
+      font-weight: 600;
+    }
+
     &__date {
+      width: 120px;
+
       span {
         text-transform: capitalize;
+        font-size: 12px;
+        font-weight: 600;
       }
+    }
+  }
+
+  .weather-daily-temperature {
+    font-size: 17px;
+    font-weight: 600;
+    width: 105px;
+    display: flex;
+    justify-content: flex-end;
+
+    &__min {
+      margin-left: 13px;
     }
   }
 }

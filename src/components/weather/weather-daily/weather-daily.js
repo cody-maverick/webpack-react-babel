@@ -11,15 +11,15 @@ const WeatherDaily = ({weatherDaily}) => {
             <li className="weather-daily__item weather-daily-item">
                 <div className="weather-daily-item__date">
                     {time}<br/>
-                    <span>{i === 0 ? 'Сегодня' : weekday}</span>
+                    <span>{i === 0 ? 'Сегодня' : i === 1 ? 'Завтра' : weekday}</span>
                 </div>
                 <WeatherIcon icon={icon}/>
                 <div className="weather-daily-item__temperature weather-daily-temperature">
                     <span className="weather-daily-temperature__max">
-                        {temperatureMax}
+                        {temperatureMax}&deg;
                     </span>
                     <span className="weather-daily-temperature__min">
-                        {temperatureMin}
+                        {temperatureMin}&deg;
                     </span>
                 </div>
             </li>
