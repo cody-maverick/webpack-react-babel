@@ -14,9 +14,7 @@ export default class WeatherService {
 
     async getWeatherMain(lat, lon) {
         let url = `/${lat},${lon}`;
-        const res = await this.getWeather(url);
-        console.log(res);
-        return res
+        return await this.getWeather(url);
     }
 
     async getWeatherCurrently(lat, lon) {
@@ -34,18 +32,18 @@ export default class WeatherService {
         return this._transformWeatherDaily(res.daily.data);
     }
 
-    async _transformWeatherDaily(data) {
-        return data.map(({time, summary, temperatureMax, temperatureMin, icon})=>{
-            return {
-                time: this.getDayForDaily(time),
-                weekday: this.getWeekdayForDaily(time),
-                summary,
-                temperatureMax: this.fToCelsius(temperatureMax),
-                temperatureMin: this.fToCelsius(temperatureMin),
-                icon
-            }
-        })
-    }
+    async _transformWeatherCurrently({temperature, summary, uvIndex, humidity, apparentTemperature, icon, pressure, windSpeed}) {
+        return {
+            temperature: this.fToCelsius(temperature),
+            summary: this.toLowerCase(summary),
+            uvIndex,
+            humidity: humidity * 100,
+            apparentTemperature: this.fToCelsius(apparentTemperature),
+            icon,
+            pressure: Math.floor(pressure * 0.750063) - 16,
+            windSpeed: Math.floor(windSpeed * 0.45)
+        }
+    };
 
     async _transformWeatherHourly(data) {
         return data.map(({time, icon, temperature}, i) => {
@@ -58,17 +56,17 @@ export default class WeatherService {
         });
     }
 
-    async _transformWeatherCurrently({temperature, summary, uvIndex, humidity, apparentTemperature, icon, pressure, windSpeed}) {
-        return {
-            temperature: this.fToCelsius(temperature),
-            summary: this.toLowerCase(summary),
-            uvIndex,
-            humidity: humidity * 100,
-            apparentTemperature: this.fToCelsius(apparentTemperature),
-            icon,
-            pressure: Math.floor(pressure * 0.750063) - 16,
-            windSpeed: Math.floor(windSpeed * 0.45)
-        }
+    async _transformWeatherDaily(data) {
+        return data.map(({time, summary, temperatureMax, temperatureMin, icon})=>{
+            return {
+                time: this.getDayForDaily(time),
+                weekday: this.getWeekdayForDaily(time),
+                summary,
+                temperatureMax: this.fToCelsius(temperatureMax),
+                temperatureMin: this.fToCelsius(temperatureMin),
+                icon
+            }
+        })
     }
 
     getDayForDaily = (unix) => {
@@ -91,7 +89,7 @@ export default class WeatherService {
     getNewDate = (unix) => {
         let date = new Date(unix * 1000);
         return `${date.getDate()}.${date.getMonth() + 1}`;
-    }
+    };
 
     tempPlus = (temp) => {
         let toArray = temp.toString().split('');

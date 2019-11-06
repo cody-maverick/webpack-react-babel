@@ -2,13 +2,10 @@ import WeatherIcon from '../weather-icon';
 
 import ReactOwlCarousel from "react-owl-carousel";
 import 'owl.carousel/dist/assets/owl.carousel.css';
-import 'owl.carousel/dist/assets/owl.theme.default.css';
 
 import './weather-hourly.less';
 
 const WeatherHourly = ({weatherHourly}) => {
-
-    console.log(weatherHourly)
 
     let hourlyWeather = weatherHourly.map(({time, icon, temperature, date}) => {
         return (

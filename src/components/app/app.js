@@ -17,19 +17,26 @@ export default class App extends Component {
             place: null,
             weatherHourly: null,
             weatherDaily: null
-        }
+        };
+        console.log('constructor')
     }
 
     weatherService = new WeatherService();
     geoCode = new Geocode();
 
+    static getDerivedStateFromProps = (props, state) => {
+        console.log('props', props);
+        console.log('state', state);
+        console.log('getDerivedStateFromProps()');
+    }
+
     async componentDidMount() {
         await this.getCityName();
         await this.getPlace();
-        await console.log('Before rendering', this.state.placeCoordinate);
         await this.setWeatherCurrently(this.state.placeCoordinate);
         await this.setWeatherHourly(this.state.placeCoordinate);
         this.setWeatherDaily(this.state.placeCoordinate);
+        console.log('componentDidMount()');
     }
 
     onSubmitForm = async (e) => {
@@ -44,9 +51,9 @@ export default class App extends Component {
         await this.getPlace();
         await console.log('Координаты 2', this.state.placeCoordinate);
         await this.saveCityName();
-        await this.setWeatherHourly(this.state.placeCoordinate);
         await this.setWeatherCurrently(this.state.placeCoordinate);
-        await this.setWeatherDaily(this.state.placeCoordinate);
+        await this.setWeatherHourly(this.state.placeCoordinate);
+        this.setWeatherDaily(this.state.placeCoordinate);
     };
 
     saveCityName = () => {
@@ -113,7 +120,7 @@ export default class App extends Component {
 
 
     render() {
-        console.log('State app', this.state);
+        console.log('render()');
         return (
             <div className="weather-app">
                 <h1 className="weather-app__title">
