@@ -107,4 +107,4 @@ export default class WeatherService {
         let lowString = string.toLowerCase();
         return lowString[0].toUpperCase() + lowString.slice(1);
     };
-}
+};

@@ -1,6 +1,6 @@
 import {Component} from 'react'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
-import CityInput from '../city-input'
 import Weather from '../weather/weather'
 
 import Geocode from '../../services/geocode'
@@ -120,18 +120,20 @@ export default class App extends Component {
     render() {
         console.log('render()');
         return (
-            <div className="weather-app">
-                <h1 className="weather-app__title">
-                    <i className="wi wi-day-cloudy">
+            <div className="app">
+                <Router>
+                    <Switch>
+                        <Route path="/weather" render={() =>
+                            <Weather weather={this.state.weather}
+                                     place={this.state.place}
+                                     weatherHourly={this.state.weatherHourly}
+                                     weatherDaily={this.state.weatherDaily}
+                                     onSubmitForm={this.onSubmitForm}/>
+                        }
+                               exact/>
+                    </Switch>
+                </Router>
 
-                    </i>
-                    weather
-                </h1>
-                <CityInput onSubmitForm={this.onSubmitForm.bind(this)}/>
-                <Weather weather={this.state.weather}
-                         place={this.state.place}
-                         weatherHourly={this.state.weatherHourly}
-                         weatherDaily={this.state.weatherDaily}/>
             </div>
         )
     }
