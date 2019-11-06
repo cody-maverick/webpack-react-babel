@@ -25,8 +25,6 @@ export default class App extends Component {
     geoCode = new Geocode();
 
     static getDerivedStateFromProps = (props, state) => {
-        console.log('props', props);
-        console.log('state', state);
         console.log('getDerivedStateFromProps()');
     }
 
@@ -35,7 +33,7 @@ export default class App extends Component {
         await this.getPlace();
         await this.setWeatherCurrently(this.state.placeCoordinate);
         await this.setWeatherHourly(this.state.placeCoordinate);
-        this.setWeatherDaily(this.state.placeCoordinate);
+        await this.setWeatherDaily(this.state.placeCoordinate);
         console.log('componentDidMount()');
     }
 

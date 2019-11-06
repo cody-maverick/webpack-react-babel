@@ -4,7 +4,7 @@ export default class WeatherService {
     _apiKey = '85f8ee954e77fe88f40afdbbc6c72246';
 
     async getWeather(url) {
-        const res = await fetch(`${this._proxyUrl}${this._apiBase}/${this._apiKey}/${url}?lang=ru`);
+        const res = await fetch(`${this._proxyUrl}${this._apiBase}/${this._apiKey}/${url}?lang=ru&?units=ru`);
         if (!res.ok) {
             throw new Error(`Could not fetch` +
                 `, received ${res.status}`)
@@ -19,6 +19,7 @@ export default class WeatherService {
 
     async getWeatherCurrently(lat, lon) {
         let res = await this.getWeatherMain(lat, lon);
+        console.log(res);
         return this._transformWeatherCurrently(res.currently);
     }
 
@@ -57,7 +58,7 @@ export default class WeatherService {
     }
 
     async _transformWeatherDaily(data) {
-        return data.map(({time, summary, temperatureMax, temperatureMin, icon})=>{
+        return data.map(({time, summary, temperatureMax, temperatureMin, icon}) => {
             return {
                 time: this.getDayForDaily(time),
                 weekday: this.getWeekdayForDaily(time),
