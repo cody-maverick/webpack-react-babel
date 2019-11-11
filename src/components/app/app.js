@@ -1,8 +1,9 @@
 import {Component} from 'react'
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import Weather from '../weather/weather'
 import Loader from '../loader/loader'
+import DetailedWeather from '../detailed-weather/detailed-weather'
 
 import Geocode from '../../services/geocode'
 import WeatherService from "../../services/weather-service"
@@ -123,24 +124,27 @@ export default class App extends Component {
         return (
             <div className="app">
                 <Router>
-                    <Switch>
-                        <Route
-                            exact
-                            path="/weather/"
-                            render={() =>
-                                <Weather weather={this.state.weather}
-                                         place={this.state.place}
-                                         weatherHourly={this.state.weatherHourly}
-                                         weatherDaily={this.state.weatherDaily}
-                                         onSubmitForm={this.onSubmitForm}/>
-                            }/>
-                        <Route
-                            exact
-                            path="/weather/loader/"
-                            render={() => <Loader/>}/>
-                    </Switch>
-                </Router>
+                    <Route
+                        exact
+                        path="/weather/"
+                        render={() =>
+                            <Weather weather={this.state.weather}
+                                     place={this.state.place}
+                                     weatherHourly={this.state.weatherHourly}
+                                     weatherDaily={this.state.weatherDaily}
+                                     onSubmitForm={this.onSubmitForm}/>
 
+                        }/>
+                    <Route
+                        exact
+                        path="/weather/loader/"
+                        render={() => <Loader/>}/>
+                    <Route
+                        extract
+                        path="/weather/detailed_weather"
+                        render={() => <DetailedWeather/>}
+                    />
+                </Router>
             </div>
         )
     }

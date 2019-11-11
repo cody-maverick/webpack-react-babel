@@ -8,6 +8,7 @@ import Loader from '../loader/loader'
 import '../../assets/css/weather-icons.min.css';
 import './weather.less';
 import CityInput from "../city-input";
+import {Link} from "react-router-dom";
 
 export default class Weather extends Component {
     constructor(props) {
@@ -34,6 +35,7 @@ export default class Weather extends Component {
                     {weatherMainInfo}
                     {weatherHourly}
                     {weatherDaily}
+                    <Link to='/weather/detailed_weather'>Loader</Link>
                 </div>
             </div>
         )
