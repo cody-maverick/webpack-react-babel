@@ -6,7 +6,7 @@ export default class CityInput extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            val: 'Москва',
+            val: this.props.city,
         }
     }
 

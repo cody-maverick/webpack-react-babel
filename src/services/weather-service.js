@@ -12,8 +12,8 @@ export default class WeatherService {
         return await res.json();
     }
 
-    async getWeatherMain(lat, lon) {
-        let url = `/${lat},${lon}`;
+    async getWeatherMain(lat, lon, time) {
+        let url = `/${lat},${lon}${time ? ',' + time : ''}`;
         return await this.getWeather(url);
     }
 
@@ -32,6 +32,18 @@ export default class WeatherService {
         let res = await this.getWeatherMain(lat, lon);
         return this._transformWeatherDaily(res.daily.data);
     }
+
+    async getWeatherInTime(lat, lon, time) {
+        let res = await this.getWeatherMain(lat, lon, time);
+        console.log(await res);
+        return this._transformWeatherInTime(res.daily.data[0]);
+    }
+
+    async _transformWeatherInTime({summary}) {
+        return {
+            summary: this.toLowerCase(summary)
+        }
+    };
 
     async _transformWeatherCurrently({temperature, summary, uvIndex, humidity, apparentTemperature, icon, pressure, windSpeed}) {
         return {
@@ -60,6 +72,7 @@ export default class WeatherService {
     async _transformWeatherDaily(data) {
         return data.map(({time, summary, temperatureMax, temperatureMin, icon}) => {
             return {
+                timeUnix: time,
                 time: this.getDayForDaily(time),
                 weekday: this.getWeekdayForDaily(time),
                 summary,

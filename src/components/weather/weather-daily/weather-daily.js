@@ -1,14 +1,22 @@
+import {Link} from 'react-router-dom'
+
 import WeatherIcon from '../weather-icon/weather-icon';
 
 import './weather-daily.less';
 
-const WeatherDaily = ({weatherDaily}) => {
+const WeatherDaily = ({weatherDaily, placeCoordinate}) => {
 
-
-    const dailyWeather = weatherDaily.map(({time, weekday, temperatureMin, temperatureMax, icon, summary}, i) => {
+    const dailyWeather = weatherDaily.map(({timeUnix, time, weekday, temperatureMin, temperatureMax, icon, summary}, i) => {
         return (
-
-            <li className="weather-daily__item weather-daily-item">
+            <Link
+                className="weather-daily__item weather-daily-item"
+                to={{
+                    pathname: `/weather/detailed_weather`,
+                    state: {
+                        placeCoordinate: placeCoordinate,
+                        timeUnix
+                    }
+                }}>
                 <div className="weather-daily-item__date">
                     {time}<br/>
                     <span>{i === 0 ? 'Сегодня' : i === 1 ? 'Завтра' : weekday}</span>
@@ -22,7 +30,7 @@ const WeatherDaily = ({weatherDaily}) => {
                         {temperatureMin}&deg;
                     </span>
                 </div>
-            </li>
+            </Link>
         )
     })
 

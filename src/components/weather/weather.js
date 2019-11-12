@@ -17,10 +17,16 @@ export default class Weather extends Component {
 
     render() {
         const weatherMainInfo = this.props.weather !== null ?
-            <WeatherInn weather={this.props.weather} place={this.props.place}/> : <Loader/>;
+            <WeatherInn
+                weather={this.props.weather}
+                place={this.props.place}/> : <Loader/>;
         const weatherHourly = this.props.weatherHourly !== null ?
-            <WeatherHourly weatherHourly={this.props.weatherHourly}/> : <Loader/>;
-        const weatherDaily = this.props.weatherDaily !== null ? <WeatherDaily weatherDaily={this.props.weatherDaily}/> :
+            <WeatherHourly
+                weatherHourly={this.props.weatherHourly}/> : <Loader/>;
+        const weatherDaily = this.props.weatherDaily !== null ?
+            <WeatherDaily
+                weatherDaily={this.props.weatherDaily}
+                placeCoordinate={this.props.placeCoordinate}/> :
             <Loader/>;
         return (
             <div className="weather-app">
@@ -30,12 +36,15 @@ export default class Weather extends Component {
                     </i>
                     weather
                 </h1>
-                <CityInput onSubmitForm={(e) => this.props.onSubmitForm(e)}/>
+                <CityInput city={this.props.city} onSubmitForm={(e) => this.props.onSubmitForm(e)}/>
                 <div className="weather-app__info">
                     {weatherMainInfo}
                     {weatherHourly}
                     {weatherDaily}
-                    <Link to='/weather/detailed_weather'>Loader</Link>
+                    <Link to={{
+                        pathname: `/weather/detailed_weather/`,
+                        state: {link: true}
+                    }}>Ссылка</Link>
                 </div>
             </div>
         )

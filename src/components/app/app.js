@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import Weather from '../weather/weather'
 import Loader from '../loader/loader'
@@ -18,7 +18,8 @@ export default class App extends Component {
             weather: null,
             place: null,
             weatherHourly: null,
-            weatherDaily: null
+            weatherDaily: null,
+            city: null
         };
         console.log('constructor')
     }
@@ -66,6 +67,9 @@ export default class App extends Component {
         if (localStorage.getItem('citySave')) {
             let cityInput = document.querySelector('#city-input');
             cityInput.value = localStorage.getItem('citySave');
+            this.setState({
+                city: cityInput.value
+            })
         }
     };
 
@@ -121,29 +125,35 @@ export default class App extends Component {
 
     render() {
         console.log('render()');
+        console.log(this.state);
         return (
             <div className="app">
                 <Router>
-                    <Route
-                        exact
-                        path="/weather/"
-                        render={() =>
-                            <Weather weather={this.state.weather}
-                                     place={this.state.place}
-                                     weatherHourly={this.state.weatherHourly}
-                                     weatherDaily={this.state.weatherDaily}
-                                     onSubmitForm={this.onSubmitForm}/>
+                    <Switch>
+                        <Route
+                            exact
+                            path="/weather/"
+                            render={() =>
+                                <Weather weather={this.state.weather}
+                                         city={this.state.city}
+                                         place={this.state.place}
+                                         weatherHourly={this.state.weatherHourly}
+                                         weatherDaily={this.state.weatherDaily}
+                                         onSubmitForm={this.onSubmitForm}
+                                         placeCoordinate={this.state.placeCoordinate}
+                                />
 
-                        }/>
-                    <Route
-                        exact
-                        path="/weather/loader/"
-                        render={() => <Loader/>}/>
-                    <Route
-                        extract
-                        path="/weather/detailed_weather"
-                        render={() => <DetailedWeather/>}
-                    />
+                            }/>
+                        <Route
+                            exact
+                            path="/weather/loader/"
+                            render={() => <Loader/>}/>
+                        <Route
+                            extract
+                            path="/weather/detailed_weather"
+                            render={(props) => <DetailedWeather {...props}/>}
+                        />
+                    </Switch>
                 </Router>
             </div>
         )
