@@ -41,7 +41,7 @@ export default class WeatherService {
 
     async _transformWeatherInTime({summary}) {
         return {
-            summary: this.toLowerCase(summary)
+            summary: summary ? this.toLowerCase(summary) : 'Ошибка получения данных'
         }
     };
 
