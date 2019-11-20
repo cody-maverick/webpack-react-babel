@@ -7,6 +7,7 @@ import DetailedWeather from '../detailed-weather/detailed-weather'
 
 import Geocode from '../../services/geocode'
 import WeatherService from "../../services/weather-service"
+import TransformWeatherData from '../../helpers/transform-data/transform-data'
 
 import './app.less';
 
@@ -17,8 +18,8 @@ export default class App extends Component {
         this.state = {
             weather: null,
             place: null,
-            weatherHourly: null,
-            weatherDaily: null,
+            // weatherHourly: null,
+            // weatherDaily: null,
             city: null
         };
         console.log('constructor')
@@ -26,6 +27,7 @@ export default class App extends Component {
 
     weatherService = new WeatherService();
     geoCode = new Geocode();
+    _transform = new TransformWeatherData();
 
     static getDerivedStateFromProps = (props, state) => {
         console.log('getDerivedStateFromProps()');
@@ -35,9 +37,9 @@ export default class App extends Component {
         await this.getCityName();
         await console.log(this.state.city);
         await this.getPlace();
-        await this.setWeatherCurrently(this.state.placeCoordinate);
-        await this.setWeatherHourly(this.state.placeCoordinate);
-        await this.setWeatherDaily(this.state.placeCoordinate);
+        await this.setWeatherMain(this.state.placeCoordinate);
+        // await this.setWeatherHourly(this.state.placeCoordinate);
+        // await this.setWeatherDaily(this.state.placeCoordinate);
         console.log('componentDidMount()');
     }
 
@@ -52,9 +54,9 @@ export default class App extends Component {
         });
         await this.getPlace();
         await this.saveCityName();
-        await this.setWeatherCurrently(this.state.placeCoordinate);
-        await this.setWeatherHourly(this.state.placeCoordinate);
-        this.setWeatherDaily(this.state.placeCoordinate);
+        await this.setWeatherMain(this.state.placeCoordinate);
+        // await this.setWeatherHourly(this.state.placeCoordinate);
+        // this.setWeatherDaily(this.state.placeCoordinate);
     };
 
     saveCityName = () => {
@@ -87,24 +89,11 @@ export default class App extends Component {
         return await this.getCities(inputVal);
     };
 
-    setWeatherCurrently = async ({lat, lon}) => {
-        let weather = await this.weatherService.getWeatherCurrently(lat, lon);
+    setWeatherMain = async ({lat, lon}) => {
+        let weather = await this.weatherService.getWeatherMain(lat, lon);
+        await console.log(weather);
         this.setState({
             weather
-        })
-    };
-
-    setWeatherHourly = async ({lat, lon}) => {
-        let weatherHourly = await this.weatherService.getWeatherHourly(lat, lon);
-        this.setState({
-            weatherHourly
-        })
-    };
-
-    setWeatherDaily = async ({lat, lon}) => {
-        let weatherDaily = await this.weatherService.getWeatherDaily(lat, lon);
-        this.setState({
-            weatherDaily
         })
     };
 
@@ -130,11 +119,10 @@ export default class App extends Component {
         return place;
     };
 
-
     render() {
         console.log('render()');
         console.log(this.state);
-        const {weather, city, place, weatherHourly, weatherDaily} = this.state;
+        const {weather, city, place} = this.state;
         return (
             <div className="app">
                 <Router>
@@ -143,12 +131,13 @@ export default class App extends Component {
                             exact
                             path="/weather/"
                             render={() =>
-                                <Weather weather={weather}
-                                         city={city}
-                                         place={place}
-                                         weatherHourly={weatherHourly}
-                                         weatherDaily={weatherDaily}
-                                         onSubmitForm={this.onSubmitForm}
+                                <Weather
+                                    weather={weather !== null ? this._transform._transformWeatherCurrently(weather.currently) : null}
+                                    city={city}
+                                    place={place}
+                                    weatherHourly={weather !== null ? this._transform._transformWeatherHourly(weather.hourly.data) : null}
+                                    weatherDaily={weather !== null ? this._transform._transformWeatherDaily(weather.daily.data) : null}
+                                    onSubmitForm={this.onSubmitForm}
                                 />
 
                             }/>
