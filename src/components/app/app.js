@@ -18,8 +18,6 @@ export default class App extends Component {
         this.state = {
             weather: null,
             place: null,
-            // weatherHourly: null,
-            // weatherDaily: null,
             city: null
         };
         console.log('constructor')
@@ -38,8 +36,6 @@ export default class App extends Component {
         await console.log(this.state.city);
         await this.getPlace();
         await this.setWeatherMain(this.state.placeCoordinate);
-        // await this.setWeatherHourly(this.state.placeCoordinate);
-        // await this.setWeatherDaily(this.state.placeCoordinate);
         console.log('componentDidMount()');
     }
 
@@ -55,8 +51,6 @@ export default class App extends Component {
         await this.getPlace();
         await this.saveCityName();
         await this.setWeatherMain(this.state.placeCoordinate);
-        // await this.setWeatherHourly(this.state.placeCoordinate);
-        // this.setWeatherDaily(this.state.placeCoordinate);
     };
 
     saveCityName = () => {
