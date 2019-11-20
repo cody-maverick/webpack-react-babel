@@ -16,6 +16,7 @@ export default class Weather extends Component {
     }
 
     render() {
+        console.log(this.props);
         const weatherMainInfo = this.props.weather !== null ?
             <WeatherInn
                 weather={this.props.weather}
@@ -25,8 +26,7 @@ export default class Weather extends Component {
                 weatherHourly={this.props.weatherHourly}/> : <Loader/>;
         const weatherDaily = this.props.weatherDaily !== null ?
             <WeatherDaily
-                weatherDaily={this.props.weatherDaily}
-                placeCoordinate={this.props.placeCoordinate}/> :
+                weatherDaily={this.props.weatherDaily}/> :
             <Loader/>;
         return (
             <div className="weather-app">

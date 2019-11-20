@@ -33,6 +33,7 @@ export default class App extends Component {
 
     async componentDidMount() {
         await this.getCityName();
+        await console.log(this.state.city);
         await this.getPlace();
         await this.setWeatherCurrently(this.state.placeCoordinate);
         await this.setWeatherHourly(this.state.placeCoordinate);
@@ -50,7 +51,6 @@ export default class App extends Component {
             placeCoordinate: null
         });
         await this.getPlace();
-        await console.log('Координаты 2', this.state.placeCoordinate);
         await this.saveCityName();
         await this.setWeatherCurrently(this.state.placeCoordinate);
         await this.setWeatherHourly(this.state.placeCoordinate);
@@ -61,14 +61,22 @@ export default class App extends Component {
         let cityInput = document.querySelector('#city-input');
         let inputVal = cityInput.value;
         localStorage.setItem('citySave', inputVal);
+        this.setState({
+            city: inputVal
+        })
     };
 
     getCityName = () => {
-        if (localStorage.getItem('citySave')) {
+        if (localStorage.getItem('citySave') !== null) {
+            console.log('Есть citySAve');
             let cityInput = document.querySelector('#city-input');
             cityInput.value = localStorage.getItem('citySave');
             this.setState({
                 city: cityInput.value
+            })
+        } else {
+            this.setState({
+                city: 'Москва'
             })
         }
     };
@@ -126,6 +134,7 @@ export default class App extends Component {
     render() {
         console.log('render()');
         console.log(this.state);
+        const {weather, city, place, weatherHourly, weatherDaily} = this.state;
         return (
             <div className="app">
                 <Router>
@@ -134,13 +143,12 @@ export default class App extends Component {
                             exact
                             path="/weather/"
                             render={() =>
-                                <Weather weather={this.state.weather}
-                                         city={this.state.city}
-                                         place={this.state.place}
-                                         weatherHourly={this.state.weatherHourly}
-                                         weatherDaily={this.state.weatherDaily}
+                                <Weather weather={weather}
+                                         city={city}
+                                         place={place}
+                                         weatherHourly={weatherHourly}
+                                         weatherDaily={weatherDaily}
                                          onSubmitForm={this.onSubmitForm}
-                                         placeCoordinate={this.state.placeCoordinate}
                                 />
 
                             }/>

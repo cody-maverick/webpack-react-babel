@@ -30,6 +30,7 @@ export default class WeatherService {
 
     async getWeatherDaily(lat, lon) {
         let res = await this.getWeatherMain(lat, lon);
+        await console.log(res);
         return this._transformWeatherDaily(res.daily.data);
     }
 
@@ -70,15 +71,16 @@ export default class WeatherService {
     }
 
     async _transformWeatherDaily(data) {
-        return data.map(({time, summary, temperatureMax, temperatureMin, icon}) => {
+        return data.map(({
+                             time, temperatureMax, temperatureMin, ...items
+                         }) => {
             return {
                 timeUnix: time,
                 time: this.getDayForDaily(time),
                 weekday: this.getWeekdayForDaily(time),
-                summary,
                 temperatureMax: this.fToCelsius(temperatureMax),
                 temperatureMin: this.fToCelsius(temperatureMin),
-                icon
+                ...items
             }
         })
     }

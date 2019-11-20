@@ -4,7 +4,7 @@ import WeatherIcon from '../weather-icon/weather-icon';
 
 import './weather-daily.less';
 
-const WeatherDaily = ({weatherDaily, placeCoordinate}) => {
+const WeatherDaily = ({weatherDaily}) => {
 
     const dailyWeather = weatherDaily.map(({timeUnix, time, weekday, temperatureMin, temperatureMax, icon, summary}, i) => {
         return (
@@ -13,8 +13,7 @@ const WeatherDaily = ({weatherDaily, placeCoordinate}) => {
                 to={{
                     pathname: `/weather/detailed_weather`,
                     state: {
-                        placeCoordinate: placeCoordinate,
-                        timeUnix
+                        weatherDaily: weatherDaily[i]
                     }
                 }}>
                 <div className="weather-daily-item__date">
