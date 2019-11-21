@@ -133,7 +133,6 @@ export default class App extends Component {
                                     weatherDaily={weather !== null ? this._transform._transformWeatherDaily(weather.daily.data) : null}
                                     onSubmitForm={this.onSubmitForm}
                                 />
-
                             }/>
                         <Route
                             exact

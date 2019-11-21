@@ -1,12 +1,5 @@
 export default class TransformWeatherData {
 
-
-    _transformWeatherInTime({summary}) {
-        return {
-            summary: summary ? this.toLowerCase(summary) : 'Ошибка получения данных'
-        }
-    };
-
     _transformWeatherCurrently({temperature, summary, uvIndex, humidity, apparentTemperature, icon, pressure, windSpeed}) {
         return {
             temperature: this.fToCelsius(temperature),

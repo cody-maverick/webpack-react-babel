@@ -1,6 +1,5 @@
 import {Component} from 'react';
 
-import WeatherService from '../../services/weather-service'
 import DetailedWeatherInn from '../detailed-weather-inn/detailed-weather-inn'
 import Loader from '../loader/loader'
 
@@ -9,28 +8,17 @@ import './detailed-weather.less';
 export default class DetailedWeather extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-        };
     }
 
-
-
-    weatherService = new WeatherService();
-
     async componentDidMount() {
-        // const {place: {lat, lon}, time} = this.state;
-        // const weatherInTime = await this.weatherService.getWeatherInTime(lat, lon, time);
-        // console.log(weatherInTime);
-        // this.setState({
-        //     weatherInTime,
-        //     onLoading: false
-        // })
         console.log(this.props);
     }
 
     render() {
         // const {weatherInTime, onLoading} = this.state;
         // const weather = onLoading === false ? <DetailedWeatherInn weatherInTime={weatherInTime}/> : <Loader/>;
+
+        const {time, ...items} = this.props.location.state.weatherDaily;
 
         return (
             <div className="weather-app">
@@ -40,7 +28,11 @@ export default class DetailedWeather extends Component {
                     </i>
                     weather
                 </h1>
-                {/*{weather}*/}
+                <div className="detailed-weather">
+                    <div className="detailed-weather__time">
+                        {time}
+                    </div>
+                </div>
             </div>
         )
     }
