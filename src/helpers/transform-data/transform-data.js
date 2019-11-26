@@ -1,15 +1,16 @@
 export default class TransformWeatherData {
 
-    _transformWeatherCurrently({temperature, summary, uvIndex, humidity, apparentTemperature, icon, pressure, windSpeed}) {
+    _transformWeatherCurrently({temperature, summary, uvIndex, humidity, apparentTemperature, icon, pressure, windSpeed, precipProbability}) {
         return {
             temperature: this.fToCelsius(temperature),
             summary: this.toLowerCase(summary),
             uvIndex,
-            humidity: humidity * 100,
+            humidity: Math.floor(humidity * 100),
             apparentTemperature: this.fToCelsius(apparentTemperature),
             icon,
             pressure: Math.floor(pressure * 0.750063) - 16,
-            windSpeed: Math.floor(windSpeed * 0.45)
+            windSpeed: Math.floor(windSpeed * 0.45),
+            precipProbability
         }
     };
 
@@ -25,8 +26,9 @@ export default class TransformWeatherData {
     }
 
     _transformWeatherDaily(data) {
+        console.log(data);
         return data.map(({
-                             time, temperatureMax, temperatureMin, ...items
+                             time, temperatureMax, temperatureMin, precipType, precipProbability, ...items
                          }) => {
             return {
                 timeUnix: time,
@@ -34,6 +36,8 @@ export default class TransformWeatherData {
                 weekday: this.getWeekdayForDaily(time),
                 temperatureMax: this.fToCelsius(temperatureMax),
                 temperatureMin: this.fToCelsius(temperatureMin),
+                precipProbability: precipProbability * 100,
+                precipType,
                 ...items
             }
         })

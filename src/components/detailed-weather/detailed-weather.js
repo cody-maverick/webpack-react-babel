@@ -15,8 +15,6 @@ export default class DetailedWeather extends Component {
     }
 
     render() {
-        // const {weatherInTime, onLoading} = this.state;
-        // const weather = onLoading === false ? <DetailedWeatherInn weatherInTime={weatherInTime}/> : <Loader/>;
 
         const {time, ...items} = this.props.location.state.weatherDaily;
 

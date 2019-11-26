@@ -1,12 +1,16 @@
 import {Link} from 'react-router-dom'
 
 import WeatherIcon from '../weather-icon/weather-icon';
+import WeatherPrecip from '../weather-precip/weather-precip';
 
 import './weather-daily.less';
 
 const WeatherDaily = ({weatherDaily}) => {
 
-    const dailyWeather = weatherDaily.map(({timeUnix, time, weekday, temperatureMin, temperatureMax, icon, summary}, i) => {
+    console.log(weatherDaily);
+
+    const dailyWeather = weatherDaily.map(({timeUnix, time, weekday, temperatureMin, temperatureMax, icon, summary, precipType, precipProbability, ...items}, i) => {
+        console.log(precipType)
         return (
             <Link
                 className="weather-daily__item weather-daily-item"
@@ -20,7 +24,13 @@ const WeatherDaily = ({weatherDaily}) => {
                     {time}<br/>
                     <span>{i === 0 ? 'Сегодня' : i === 1 ? 'Завтра' : weekday}</span>
                 </div>
-                <WeatherIcon icon={icon}/>
+
+                <div className="weather-daily-item__icon">
+                    <WeatherIcon icon={icon}/>
+                    <div><WeatherPrecip precipName={precipType}/> {precipProbability}%</div>
+                </div>
+
+
                 <div className="weather-daily-item__temperature weather-daily-temperature">
                     <span className="weather-daily-temperature__max">
                         {temperatureMax}&deg;

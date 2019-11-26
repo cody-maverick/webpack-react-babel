@@ -3,7 +3,7 @@ import WeatherIcon from '../weather-icon';
 import './weather-inn.less'
 
 const WeatherInn = ({weather, place}) => {
-    let {temperature, summary, humidity, apparentTemperature, icon, windSpeed, pressure} = weather;
+    let {temperature, summary, humidity, apparentTemperature, icon, windSpeed, pressure, precipProbability} = weather;
     let {mainCityName, mainCityNameDescription} = place;
 
     const accordionSwitch = (e) => {
@@ -37,7 +37,7 @@ const WeatherInn = ({weather, place}) => {
                         {summary}&nbsp;
                     </div>
                     <div className="weather-main__apparent">
-                        Ощущается как: {apparentTemperature}
+                        Ощущается как: {apparentTemperature}&deg;
                     </div>
                 </div>
                 <div className="weather-main__right">
@@ -50,6 +50,9 @@ const WeatherInn = ({weather, place}) => {
                         </li>
                         <li className="weather-list__item">
                             <i className="wi wi-barometer"></i> <span>{pressure} мм рт. ст.</span>
+                        </li>
+                        <li className="weather-list__item">
+                            <span>Вероятность осадков {precipProbability}%</span>
                         </li>
                     </ul>
                 </div>
