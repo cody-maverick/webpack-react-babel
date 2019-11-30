@@ -10,7 +10,7 @@ export default class TransformWeatherData {
             icon,
             pressure: Math.floor(pressure * 0.750063) - 16,
             windSpeed: Math.floor(windSpeed * 0.45),
-            precipProbability
+            precipProbability: precipProbability*100
         }
     };
 

@@ -17,7 +17,8 @@ const WeatherDaily = ({weatherDaily}) => {
                 to={{
                     pathname: `/weather/detailed_weather`,
                     state: {
-                        weatherDaily: weatherDaily[i]
+                        weatherDaily: weatherDaily[i],
+                        time: i === 0 ? 'Сегодня' : i === 1 ? 'Завтра' : weekday
                     }
                 }}>
                 <div className="weather-daily-item__date">
@@ -27,7 +28,9 @@ const WeatherDaily = ({weatherDaily}) => {
 
                 <div className="weather-daily-item__icon">
                     <WeatherIcon icon={icon}/>
-                    <div><WeatherPrecip precipName={precipType}/> {precipProbability}%</div>
+                    <div className="weather-daily-item__precip">
+                        <WeatherPrecip precipName={precipType}/> {precipProbability}%
+                    </div>
                 </div>
 
 

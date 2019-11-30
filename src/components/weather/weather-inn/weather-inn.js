@@ -52,7 +52,7 @@ const WeatherInn = ({weather, place}) => {
                             <i className="wi wi-barometer"></i> <span>{pressure} мм рт. ст.</span>
                         </li>
                         <li className="weather-list__item">
-                            <span>Вероятность осадков {precipProbability}%</span>
+                            <span>Вероятность осадков: {precipProbability}%</span>
                         </li>
                     </ul>
                 </div>

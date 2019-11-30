@@ -1,3 +1,5 @@
+import './weather-precip.less';
+
 const WeatherPrecip = ({precipName}) => {
 
     let precip = precipName === 'snow' ? 'снег' :
