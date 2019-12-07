@@ -19,7 +19,7 @@ const MoonPhase = (props) => {
             classNames = classNames + 'wi-moon-alt-full';
             break;
         case (phase > 0.75 && phase < 1) :
-            classNames = classNames + 'wi-moon-alt-waning-crescent-2';
+            classNames = classNames + 'wi-moon-alt-waning-crescent-4';
             break;
     }
 
