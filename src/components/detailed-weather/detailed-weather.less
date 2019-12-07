@@ -7,7 +7,7 @@
     width: max-content;
     font-size: 12px;
     color: #fff;
-    background: #bfbfbf;
+    background: #b1b1b1;
     padding: 3px 11px 4px;
     border-radius: 16px;
     margin: 0 auto 10px;
@@ -17,6 +17,7 @@
     width: 100%;
     background: #fff4e1;
     .style-border();
+    margin-bottom: 8px;
 
     &-main {
       display: flex;
@@ -26,13 +27,14 @@
 
       &__state {
         font-size: 14px;
-        color: #a4a4a4;
-        margin-bottom: 8px;
+        color: #000;
         text-align: center;
+        max-width: 166px;
       }
 
       & .wi {
         font-size: 50px;
+        margin-right: 10px;
       }
 
       &__temperature {
@@ -47,6 +49,48 @@
           font-weight: 600;
         }
       }
+    }
+  }
+
+  &-index {
+    .style-border();
+    background: #ffdeef;
+    padding: 15px;
+
+    &-list {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0;
+      align-items: center;
+
+      &__item {
+        text-align: center;
+
+        i {
+          color: #ad00cc;
+          width: 27px;
+          text-align: center;
+          font-size: 20px;
+          margin-right: 4px;
+          font-style: normal;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  .detailed-weather {
+    &-inn {
+      &-main {
+        &__state {
+          font-size: 12px;
+        }
+      }
+    }
+
+    &-index {
+      font-size: 12px;
     }
   }
 }
