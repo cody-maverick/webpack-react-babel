@@ -66,8 +66,11 @@ export default class DetailedWeather extends Component {
                             </li>
                         </ul>
                     </div>
-                    <div class="moon-phase">
+                    <div class="detailed-weather-stars">
                         <MoonPhase phase={moonPhase}/>
+                        <div class="detailed-weather-stars__sun sun-info">
+
+                        </div>
                     </div>
                 </div>
 

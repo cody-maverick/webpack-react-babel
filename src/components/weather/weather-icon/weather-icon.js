@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './weather-icon.less'
+import './weather-icon.less';
 
 const WeatherIcon = ({icon}) => {
     let classNames = 'wi wi-icon-main ';

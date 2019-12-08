@@ -56,6 +56,7 @@
     .style-border();
     background: #ffdeef;
     padding: 15px;
+    margin-bottom: 8px;
 
     &-list {
       display: flex;
@@ -74,6 +75,32 @@
           margin-right: 4px;
           font-style: normal;
         }
+      }
+    }
+  }
+
+  &-stars {
+    .style-border();
+    margin-bottom: 8px;
+    background: #918fff;
+    display: flex;
+    padding: 15px;
+
+    .moon-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-size: 12px;
+
+      &__text {
+        color: #fff;
+        font-weight: 600;
+      }
+
+      i {
+        color: #ffe78e;
+        font-size: 46px;
       }
     }
   }

@@ -10,7 +10,7 @@ export default class TransformWeatherData {
             icon,
             pressure: Math.floor(pressure * 0.750063) - 16,
             windSpeed: Math.floor(windSpeed * 0.45),
-            precipProbability: precipProbability * 100
+            precipProbability: Math.floor(precipProbability * 100)
         }
     };
 
@@ -27,7 +27,7 @@ export default class TransformWeatherData {
 
     _transformWeatherDaily(data) {
         return data.map(({
-                             time, temperatureMax, temperatureMin, precipType, precipProbability, windSpeed, pressure, uvIndex, moonPhase, ...items
+                             time, temperatureMax, temperatureMin, precipType, precipProbability, windSpeed, pressure, uvIndex, moonPhase, humidity, ...items
                          }) => {
             return {
                 timeUnix: time,
@@ -37,6 +37,7 @@ export default class TransformWeatherData {
                 temperatureMin: this.fToCelsius(temperatureMin),
                 windSpeed: Math.floor(windSpeed * 0.45),
                 pressure: Math.floor(pressure * 0.750063) - 16,
+                humidity: Math.floor(humidity * 100),
                 precipProbability: Math.floor(precipProbability * 100),
                 precipType,
                 uvIndex,
